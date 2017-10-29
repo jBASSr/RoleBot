@@ -10,11 +10,11 @@ import re
 import os
 import io
 
-# try:
-#     import creds
-# except:
-#     print("Need valid creds.py to login")
-#     exit()
+try:
+    import creds
+except:
+    print("Need valid creds.py to login")
+    exit()
 
 
 logger = logging.getLogger('discord')
