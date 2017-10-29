@@ -80,8 +80,8 @@ wowsub = r.subreddit('WoW') #wowsub = r.get_subreddit('WoW')
 print(r.read_only) # Output state of reddit instance.
 
 if not client.is_logged_in:
-    print('Login fail')
-    exit(1)
+    print('Login fail but continuing')
+    # exit(1)
 
 
 def say_reddit_submission(submission, message):
@@ -188,11 +188,6 @@ def on_message(message):
                             client.replace_roles(message.author,role)
                             client.delete_message(message)
 
-
-        elif '!rickme' in message.content.lower():
-            client.send_message(message.channel, random.choice(quotes))
-
-
         elif '!purge' in message.content.lower():
             for server in client.servers:
                 if server.name == 'wow':
@@ -201,42 +196,6 @@ def on_message(message):
                     saythis = ragnarquote + '\n'
                     saythis += purged.name + ' has been purged.'
                     client.send_message(message.channel,saythis)
-
-
-        elif '!sticky' in message.content.lower():
-            if 'bottom' in message.content.lower():
-                sub = wowsub.get_sticky(bottom=True)
-            else:
-                sub = wowsub.get_sticky()
-            say_reddit_submission(sub, message)
-
-
-        elif '!hot' in message.content.lower():
-            sub = random_reddit_submission('hot')
-            say_reddit_submission(sub, message)
-
-
-        elif '!rising' in message.content.lower():
-            sub = random_reddit_submission('rising')
-            say_reddit_submission(sub, message)
-
-
-        elif '!new' in message.content.lower():
-            sub = random_reddit_submission('new')
-            say_reddit_submission(sub, message)
-
-
-        elif '!controversial' in message.content.lower():
-            sub = random_reddit_submission('controversial')
-            say_reddit_submission(sub, message)
-
-
-        elif '!choice' in message.content.lower():
-            choices = re.sub('!choice', '', message.content.lower())
-            selection = random.choice(choices.split(';'))
-            saythis = message.author.name + ', I choose **' + selection +'**.'
-            client.send_message(message.channel, saythis)
-
 
         elif '!8ball' in message.content.lower():
             question = message.content
